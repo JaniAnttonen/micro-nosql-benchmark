@@ -10,10 +10,11 @@
   "author": "Jani Anttonen",
   "license": "MIT",
   "dependencies": {
-    "connect-mongo": "^1.3.2",
-    "connect-redis": "^3.1.0",
     "crypto": "0.0.3",
     "micro": "^6.1.0",
+    "mongodb": "^2.2.11",
+    "perfy": "^1.1.2",
+    "redis": "^2.6.3",
     "then-sleep": "^1.0.1"
   }
 }
