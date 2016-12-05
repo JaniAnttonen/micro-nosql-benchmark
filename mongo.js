@@ -1,7 +1,5 @@
 const perfy = require('perfy')
-const Db = require('mongodb').Db
 const mongo = require('mongodb').MongoClient
-const Server = require('mongodb').Server
 
 const testMongo = async (data) => {
   // Start the timer
