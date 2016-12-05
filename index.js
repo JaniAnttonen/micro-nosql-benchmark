@@ -1,23 +1,34 @@
 const { send } = require('micro')
-const sleep = require('then-sleep')
 const crypto = require('crypto')
-const redis = require('redis').createClient()
-const mongo = require('mongodb').MongoClient
-const perfy = require('perfy')
 
+// The tests
+const testRedis = require('./redis').testRedis
+const testMongo = require('./mongo').testMongo
+
+// Function for creating dummy session data
 const createCipher = (password) => {
   return crypto.createCipher('aes192', `${password}${Date.now()}`)
 }
 
-const test = (iterations) => {
+const createData = (iterations, cipher) => {
+  const items = []
   let i = 0
   for (i; i < iterations; i++) {
-    redis.set(`${i}`, `${createCipher("Ebin")}`);
+    items.push([i, cipher])
   }
+  return items
 }
 
 module.exports = async (req, res) => {
-  perfy.start('timeNeeded')
-  await test(1000000)
-  send(res, 200, `The test took ${perfy.end('timeNeeded').time} s`)
+  // Create dummy session hash
+  const cipher = createCipher('Ebin')
+  const data = createData(100, cipher)
+
+  const redisTime = await testRedis(data)
+  const mongoTime = await testMongo(data)
+  
+  // Say time required for all operations
+  send(res, 200,
+    `redis: ${redisTime} ms\nmongo: ${mongoTime} ms`
+  )
 }
