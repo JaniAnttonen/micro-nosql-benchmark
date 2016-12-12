@@ -35,16 +35,25 @@ require('http').createServer(function (request, response) {
  * Endpoints for the performance tests
  */
 module.exports = async (req, res) => {
-  // Create dummy session hash
-  const cipher = createCipher('Ebin')
-  const data = createData(100, cipher)
+  // Parse request
+  const endpoint = url.parse(req.url).pathname
+  const query = qs.parse(url.parse(req.url).query)
+  const iterations = query && query.iter ? query.iter : 100
+  const user = query && query.user ? query.user : 'Ebin'
 
-  console.log(req)
-  const redisTime = await testRedis(data)
-  const mongoTime = await testMongo(data)
+  // Create dummy session hash
+  const cipher = createCipher(user)
+  const data = createData(iterations, cipher)
   
-  // Say time required for all operations
-  send(res, 200,
-    `redis: ${redisTime} ms\nmongo: ${mongoTime} ms`
-  )
+  // Default time sent to the user
+  let elapsed = 0
+
+  // Routing
+  switch(endpoint){
+    case '/redis': elapsed = await testRedis(data)
+    case '/mongo': elapsed = await testMongo(data)
+  }
+  
+  // Send data
+  send(res, 200,`${elapsed}`)
 }
