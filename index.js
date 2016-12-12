@@ -23,13 +23,17 @@ const createData = (iterations, cipher) => {
   return items
 }
 
-// File server for the test html page
+
+/**
+ * File server for the html test page
+ */
 const fileServer = new nodeStatic.Server()
 require('http').createServer(function (request, response) {
     request.addListener('end', function () {
         fileServer.serveFile('/index.html', 200, {}, request, response)
     }).resume()
 }).listen(8080)
+
 
 /**
  * Endpoints for the performance tests
@@ -45,7 +49,7 @@ module.exports = async (req, res) => {
   const cipher = createCipher(user)
   const data = createData(iterations, cipher)
   
-  // Default time sent to the user
+  // Default time
   let elapsed = 0
 
   // Routing
