@@ -10,9 +10,11 @@
   "author": "Jani Anttonen",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.15.3",
     "crypto": "0.0.3",
     "micro": "^6.1.0",
     "mongodb": "^2.2.11",
+    "node-static": "^0.7.9",
     "perfy": "^1.1.2",
     "redis": "^2.6.3"
   }
