@@ -1,75 +1,81 @@
 <!doctype html>
+
 <head>
-<script src="mithril.min.js"></script>
+  <script src="mithril.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
+
 <body>
-<div id="app">
+  <div id="app">
+  </div>
+  <script>
+    const app = {}
 
-</div>
-<script>
-  //this application only has one component: todo
-  const todo = {}
+    // API for the microservices running the database tests
+    const api = axios.create({
+      baseURL: 'http://localhost:3000',
+      timeout: 1000
+    })
 
-  //for simplicity, we use this component to namespace the model classes
-
-  //the Todo class has two properties
-  todo.Todo = function(data) {
+    app.tests = function (data) {
       this.description = m.prop(data.description)
       this.done = m.prop(false)
-  }
+    }
 
-  //the TodoList class is a list of Todo's
-  todo.TodoList = Array
+    app.testList = Array
 
-  //the view-model tracks a running list of todos,
-  //stores a description for new todos before they are created
-  //and takes care of the logic surrounding when adding is permitted
-  //and clearing the input after adding a todo to the list
-  todo.vm = (function() {
+    app.vm = (function () {
       const vm = {}
-      vm.init = function() {
-          //a running list of todos
-          vm.list = new todo.TodoList()
 
-          //a slot to store the name of a new todo before it is created
-          vm.description = m.prop("")
+      vm.init = function () {
 
-          //adds a todo to the list, and clears the description field for user convenience
-          vm.add = function() {
-              if (vm.description()) {
-                  vm.list.push(new todo.Todo({description: vm.description()}))
-                  vm.description("")
-              }
-          }
+        vm.list = new app.testList()
+
+        //adds a app to the list, and clears the description field for user convenience
+        vm.add = function () {
+          api.get('/redis', {
+            params: {
+              iter: 10
+            }
+          }).then(function (response) {
+
+            console.log(response.data)
+
+            vm.list.push({
+              description: response.data
+            })
+
+          }).catch(function (error) {
+            console.log(error)
+          })
+        }
+
       }
       return vm
-  }())
+    }())
 
-  //the controller defines what part of the model is relevant for the current page
-  //in our case, there's only one view-model that handles everything
-  todo.controller = function() {
-      todo.vm.init()
-  }
+    app.controller = function () {
+      app.vm.init()
+    }
 
-  //here's the view
-  todo.view = function() {
+    //here's the view
+    app.view = function () {
       return [
-          m("input", {onchange: m.withAttr("value", todo.vm.description), value: todo.vm.description()}),
-          m("button", {onclick: todo.vm.add}, "Add"),
-          m("table", [
-              todo.vm.list.map(function(task, index) {
-                  return m("tr", [
-                      m("td", [
-                          m("input[type=checkbox]", {onclick: m.withAttr("checked", task.done), checked: task.done()})
-                      ]),
-                      m("td", {style: {textDecoration: task.done() ? "line-through" : "none"}}, task.description()),
-                  ])
-              })
-          ])
+        m("button", {
+          onclick: app.vm.add
+        }, "Run tests!"),
+        m("table", [
+          app.vm.list.map(function (test, index) {
+            return m("p", `${test.description} ms`)
+          })
+        ])
       ]
-  }
+    }
 
-  //initialize the application
-  m.mount(document.body, {controller: todo.controller, view: todo.view})
-</script>
+    //initialize the application
+    m.mount(document.body, {
+      controller: app.controller,
+      view: app.view
+    })
+  </script>
 </body>
