@@ -63,6 +63,8 @@ module.exports = async (req, res) => {
     case '/mongo': elapsed = await testMongo(data)
   }
   
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
   // Send data
   send(res, 200,`${elapsed}`)
 }
