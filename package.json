@@ -1,6 +1,6 @@
 {
   "name": "micro-session-store-bench",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A test suite for my thesis testing the speed of localStorage, Redis and MongoDB respectively.",
   "main": "index.js",
   "scripts": {
@@ -12,10 +12,12 @@
   "dependencies": {
     "axios": "^0.15.3",
     "crypto": "0.0.3",
+    "finalhandler": "^0.5.1",
     "micro": "^6.1.0",
+    "mithril": "^0.2.5",
     "mongodb": "^2.2.11",
-    "node-static": "^0.7.9",
     "perfy": "^1.1.2",
-    "redis": "^2.6.3"
+    "redis": "^2.6.3",
+    "serve-static": "^1.11.1"
   }
 }

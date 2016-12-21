@@ -1,7 +1,9 @@
 const { send } = require('micro')
+const http = require('http')
 const url = require('url')
 const qs = require('querystring')
-const nodeStatic = require('node-static')
+const serveStatic = require('serve-static')
+const finalhandler = require('finalhandler')
 const crypto = require('crypto')
 
 // The tests
@@ -27,12 +29,15 @@ const createData = (iterations, cipher) => {
 /**
  * File server for the html test page
  */
-const fileServer = new nodeStatic.Server()
-require('http').createServer(function (request, response) {
-    request.addListener('end', function () {
-        fileServer.serveFile('/index.html', 200, {}, request, response)
-    }).resume()
-}).listen(8080)
+const serve = serveStatic('public/', {'index': 'index.html'})
+ 
+// Create server 
+var staticServer = http.createServer(function onRequest (req, res) {
+  serve(req, res, finalhandler(req, res))
+})
+ 
+// Listen 
+staticServer.listen(8000)
 
 
 /**
