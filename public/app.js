@@ -80,8 +80,8 @@ app.view = function() {
 
     m( "table", [
       m( "tr", [
-        m( "td", "Redis AVG"),
-        m( "td", "Mongo AVG"),
+        m( "td", "Redis mean"),
+        m( "td", "Mongo mean"),
         m( "td", "Redis total"),
         m( "td", "Mongo total")
       ]),

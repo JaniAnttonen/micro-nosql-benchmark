@@ -1,0 +1,37 @@
+body {
+  padding: 1.2em 3em;
+  font-family: "Cambria", "Cochin", "Georgia", "Times", "Times New Roman", serif;
+}
+
+/* Header */
+p {
+  font-size: 1.8em;
+}
+
+/* "Run tests!" button */
+button {
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+/*
+ * TABLE STUFFINGS
+ */
+table {
+  margin-top: 1.8em;
+}
+
+td {
+  padding: 4px 8px;
+  background: #f4feff;
+}
+
+/* Even a thesis needs some fancy stylez */
+td:nth-child(even) {
+  background-color: #fafdff;
+}
+
+tr:first-of-type td{
+  background: #ebebeb;
+  font-weight: bold;
+}
