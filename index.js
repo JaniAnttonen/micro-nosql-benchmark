@@ -63,6 +63,7 @@ module.exports = async (req, res) => {
     case '/mongo': elapsed = await testMongo(data)
   }
   
+  // Allow the test site to control the API
   res.setHeader('Access-Control-Allow-Origin', '*')
 
   // Send data
