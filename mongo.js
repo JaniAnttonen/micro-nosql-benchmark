@@ -8,8 +8,9 @@ const testMongo = async (data) => {
   // Use connect method to connect to the Server
   await data.filter((index, hash) => {
     mongo.connect('mongodb://localhost:27017/test', (err, db) => {
-      db.collection('sessiontest').updateOne({index:hash}, {upsert:true}, (err, result) => {})
-      db.close()
+      db.collection('sessiontest').insertOne({index:hash}, {upsert:true}, (err, result) => {
+        db.close()
+      })
     })
   })
 

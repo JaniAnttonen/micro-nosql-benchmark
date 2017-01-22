@@ -2,8 +2,7 @@ const app = {}
 
 // API for the microservices running the database tests
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
-  timeout: 5000
+  baseURL: 'http://localhost:3000'
 })
 
 let FRONT_ITERATIONS = 100
@@ -44,21 +43,23 @@ app.vm = ( function() {
           params: {
             iter: BACK_ITERATIONS
           }
-        }).then(response =>
+        }).then(response => {
           vm.redis.push(response.data)
-        )
+          vm.list[0] = calcMean(vm.redis).toFixed(3)
+          vm.list[2] = calcSum(vm.redis).toFixed(3)
+          m.redraw(true)
+        })
         api.get('/mongo', {
           params: {
             iter: BACK_ITERATIONS
           }
-        }).then(response =>
+        }).then(response => {
           vm.mongo.push(response.data)
-        )
+          vm.list[1] = calcMean(vm.mongo).toFixed(3)
+          vm.list[3] = calcSum(vm.mongo).toFixed(3)
+          m.redraw(true)
+        })
       }
-      vm.list[0] = calcMean(vm.redis).toFixed(3)
-      vm.list[1] = calcMean(vm.mongo).toFixed(3)
-      vm.list[2] = calcSum(vm.redis).toFixed(3)
-      vm.list[3] = calcSum(vm.mongo).toFixed(3)
     }
 
     // Increase iterations
