@@ -6,8 +6,8 @@ const api = axios.create({
   timeout: 5000
 })
 
-const FRONT_ITERATIONS = 1000
-const BACK_ITERATIONS = 1
+const FRONT_ITERATIONS = 100
+const BACK_ITERATIONS = 10
 
 const calcSum = (array) => {
   let sum = 0
@@ -91,7 +91,9 @@ app.view = function() {
           return m( "td", `${test} ms` )
         })
       ])
-    ])
+    ]),
+
+    m( "span", `${app.vm.mongo.length} tests ran`)
   ]
 }
 
