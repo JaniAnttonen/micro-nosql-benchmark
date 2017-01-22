@@ -11,16 +11,20 @@ const testRedis = require('./redis').testRedis
 const testMongo = require('./mongo').testMongo
 
 // Function for creating dummy session data
-const createCipher = (password) => {
+const createHash = (password) => {
   return crypto.createCipher('aes192', `${password}${Date.now()}`)
 }
 
+const userData = () => (
+  {isAdmin: false, language: "13375P34K"}
+)
+
 // Create an array of dummy session data with a specified length
-const createData = (iterations, cipher) => {
+const createData = (iterations, hash) => {
   const items = []
   let i = 0
   for (i; i < iterations; i++) {
-    items.push([i, cipher])
+    items.push([i, hash, userData])
   }
   return items
 }
@@ -51,8 +55,8 @@ module.exports = async (req, res) => {
   const user = query && query.user ? query.user : 'Ebin'
 
   // Create dummy session hash
-  const cipher = createCipher(user)
-  const data = createData(iterations, cipher)
+  const hash = createHash(user)
+  const data = createData(iterations, hash)
   
   // Default time
   let elapsed = 0
