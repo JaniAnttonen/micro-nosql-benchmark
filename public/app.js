@@ -6,8 +6,8 @@ const api = axios.create({
   timeout: 5000
 })
 
-const FRONT_ITERATIONS = 100
-const BACK_ITERATIONS = 10
+let FRONT_ITERATIONS = 100
+let BACK_ITERATIONS = 10
 
 const calcSum = (array) => {
   let sum = 0
@@ -60,7 +60,20 @@ app.vm = ( function() {
       vm.list[2] = calcSum(vm.redis).toFixed(3)
       vm.list[3] = calcSum(vm.mongo).toFixed(3)
     }
+
+    // Increase iterations
+    vm.increaseIters = (type) => {
+      if(type=="front") FRONT_ITERATIONS = FRONT_ITERATIONS * 10
+      if(type=="back") BACK_ITERATIONS = BACK_ITERATIONS * 10
+    }
+    // Decrease iterations
+    vm.decreaseIters = (type) => {
+      if(type=="front") FRONT_ITERATIONS = FRONT_ITERATIONS == 1 ? 1 : FRONT_ITERATIONS / 10
+      if(type=="back") BACK_ITERATIONS = BACK_ITERATIONS == 1 ? 1 : BACK_ITERATIONS / 10
+    }
+
   }
+
   return vm
 }())
 
@@ -73,6 +86,22 @@ app.view = function() {
   return [
 
     m( "p", `${FRONT_ITERATIONS} * ${BACK_ITERATIONS} tests with dummy session data.`),
+
+    m( "button", {
+      onclick: () => app.vm.increaseIters("front")
+    }, "+ frontend"),
+
+    m( "button", {
+      onclick: () => app.vm.increaseIters("back")
+    }, "+ backend"),
+
+    m( "button", {
+      onclick: () => app.vm.decreaseIters("front")
+    }, "- frontend"),
+
+    m( "button", {
+      onclick: () => app.vm.decreaseIters("back")
+    }, "- backend"),
 
     m( "button", {
       onclick: () => app.vm.runTests(FRONT_ITERATIONS)
