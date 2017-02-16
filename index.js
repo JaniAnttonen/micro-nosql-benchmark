@@ -72,9 +72,13 @@ module.exports = async(req, res) => {
         case '/mongowrite':
             elapsed = await writeMongo(data)
         case '/redisread':
-            elapsed = await readRedis(prevData.slice(prevData.length - iterations, prevData.length - 1))
+            elapsed = await readRedis(
+                prevData.slice(prevData.length - iterations, prevData.length - 1)
+            )
         case '/mongoread':
-            elapsed = await readMongo(prevData.slice(prevData.length - iterations, prevData.length - 1))
+            elapsed = await readMongo(
+                prevData.slice(prevData.length - iterations, prevData.length - 1)
+            )
     }
 
 
