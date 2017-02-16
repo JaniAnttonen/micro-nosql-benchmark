@@ -113,7 +113,7 @@ app.controller = function() {
 // View
 app.view = function() {
   return [
-    m("p", `${FRONT_ITERATIONS} * ${BACK_ITERATIONS} tests with dummy session data.`),
+    m("p", `${FRONT_ITERATIONS} tests with dummy session data.`),
 
     m("button", {
       onclick: () => app.vm.increaseIters("front")
