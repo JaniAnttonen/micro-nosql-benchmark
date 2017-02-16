@@ -1,37 +1,53 @@
 body {
-  padding: 1.2em 3em;
-  font-family: Arial, Helvetica, sans-serif;
+    padding: 1.2em 3em;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
 
 /* Header */
+
 p {
-  font-size: 1.8em;
+    font-size: 1.8em;
 }
 
+
 /* "Run tests!" button */
+
 button {
-  padding: 6px 10px;
-  cursor: pointer;
+    padding: 6px 10px;
+    cursor: pointer;
 }
+
 
 /*
  * TABLE STUFFINGS
  */
+
+div {
+    padding: 1.8em 0;
+}
+
+span {
+    line-height: 2em;
+}
+
 table {
-  margin-top: 1.8em;
+    margin-bottom: 1em;
 }
 
 td {
-  padding: 4px 8px;
-  background: #f4feff;
+    padding: 4px 8px;
+    background: #f4feff;
 }
+
 
 /* Even a thesis needs some fancy stylez */
+
 td:nth-child(even) {
-  background-color: #fafdff;
+    background-color: #fafdff;
 }
 
-tr:first-of-type td{
-  background: #ebebeb;
-  font-weight: bold;
+tr:first-of-type td {
+    background: #ebebeb;
+    font-weight: bold;
 }

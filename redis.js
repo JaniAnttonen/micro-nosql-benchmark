@@ -1,17 +1,32 @@
 const perfy = require('perfy')
 const redis = require('redis').createClient()
 
-const testRedis = async (data) => {
-  let i = 0
+const writeRedis = async(data) => {
+    let i = 0
 
-  // Start the timer
-  perfy.start('timeRedis')
+    // Start the timer
+    perfy.start('timeRedis')
 
-  await data.filter((index, hash, userData) => {
-    redis.set(`${hash}`, `${userData}`)
-  })
+    await data.filter((index, hash, userData) => {
+        redis.set(`${hash}`, `${userData}`)
+    })
 
-  return perfy.end('timeRedis').milliseconds
+    return perfy.end('timeRedis').milliseconds
 }
 
-exports.testRedis = testRedis
+const readRedis = async(data) => {
+    let i = 0
+
+    // Start the timer
+    perfy.start('timeRedis')
+
+    await data.filter((index, hash) => {
+        redis.get(`${hash}`)
+    })
+
+    return perfy.end('timeRedis').milliseconds
+}
+
+
+exports.writeRedis = writeRedis
+exports.readRedis = readRedis
