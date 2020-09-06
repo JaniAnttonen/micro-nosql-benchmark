@@ -14,7 +14,7 @@
     "crypto": "0.0.3",
     "finalhandler": "^0.5.1",
     "micro": "^6.1.0",
-    "mithril": "^0.2.5",
+    "mithril": "^1.1.7",
     "mongodb": "^3.1.13",
     "perfy": "^1.1.2",
     "redis": "^2.6.3",
