@@ -13,7 +13,7 @@
     "axios": "^0.21.2",
     "crypto": "0.0.3",
     "finalhandler": "^1.2.0",
-    "micro": "^6.1.0",
+    "micro": "^10.0.1",
     "mithril": "^1.1.7",
     "mongodb": "^3.1.13",
     "perfy": "^1.1.2",
