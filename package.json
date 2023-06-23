@@ -15,7 +15,7 @@
     "finalhandler": "^1.2.0",
     "micro": "^10.0.1",
     "mithril": "^1.1.7",
-    "mongodb": "^3.1.13",
+    "mongodb": "^3.7.4",
     "perfy": "^1.1.2",
     "redis": "^3.1.1",
     "serve-static": "^1.11.1"
